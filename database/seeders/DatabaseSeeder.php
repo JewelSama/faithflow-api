@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ParishSeeder::class,
             UserSeeder::class,
             MemberSeeder::class,
+            DepartmentSeeder::class,
         ]);
     }
 }
