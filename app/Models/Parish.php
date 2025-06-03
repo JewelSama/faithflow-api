@@ -43,4 +43,9 @@ class Parish extends Model
         return $this->hasMany(Attendance::class);
     }
 
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
+
 }
