@@ -15,6 +15,7 @@ class Member extends Model
         'address',
         'dob',
         'joined_date',
+        'department_id'
     ];
 
     public function parish()
@@ -25,6 +26,11 @@ class Member extends Model
     public function donations()
     {
         return $this->hasMany(Donation::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
     
 }
