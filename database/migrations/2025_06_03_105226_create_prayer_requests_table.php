@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('member_id')->constrained()->onDelete('cascade');
             $table->foreignId('parish_id')->constrained()->onDelete('cascade');
             $table->text('request');
-            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
     }
