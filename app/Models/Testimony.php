@@ -11,6 +11,15 @@ class Testimony extends Model
         'member_id',
         'content',
         'date',  // date testimony was shared or recorded
-        'is_approved',
     ];
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
+    }
+
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
 }
