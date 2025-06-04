@@ -33,7 +33,7 @@ class MemberController extends Controller
             $request->validate([
                 'parish_id' => 'required|exists:parishes,id',
                 'full_name' => 'required|string|max:255',
-                'gender' => 'required|in:male,female',
+                'gender' => 'required|in:Male,Female',
                 'phone' => 'required|string|max:20',
                 'email' => 'nullable|email',
                 'address' => 'nullable|string|max:255',
@@ -60,7 +60,7 @@ class MemberController extends Controller
     public function show($id)
     {
         try {
-            $member = Member::findOrFail($id);
+            $member = Member::with(['parish', 'donations', 'department'])->findOrFail($id);
 
             return response()->json([
                 'success' => true,
