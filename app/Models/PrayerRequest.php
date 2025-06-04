@@ -10,6 +10,15 @@ class PrayerRequest extends Model
         'parish_id',
         'member_id',
         'request',
-        'is_approved',
     ];
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
+    }
+    
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
 }
