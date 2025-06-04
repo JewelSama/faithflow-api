@@ -48,4 +48,14 @@ class Parish extends Model
         return $this->hasMany(Department::class);
     }
 
+    public function prayerRequests()
+    {
+        return $this->hasMany(PrayerRequest::class);
+    }
+
+    public function testimonies()
+    {
+        return $this->hasMany(Testimony::class);
+    }
+
 }
