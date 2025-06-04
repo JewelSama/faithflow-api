@@ -32,5 +32,15 @@ class Member extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function prayerRequests()
+    {
+        return $this->hasMany(PrayerRequest::class);
+    }
+    
+    public function testimonies()
+    {
+        return $this->hasMany(Testimony::class);
+    }
     
 }
