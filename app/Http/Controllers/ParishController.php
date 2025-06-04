@@ -163,7 +163,10 @@ class ParishController extends Controller
     public function departments($id)
     {
         try {
-            $parish = Parish::with('departments')->findOrFail($id);
+            // $parish = Parish::with('departments')->findOrFail($id);
+            $parish = Parish::with(['departments' => function ($query) {
+                $query->withCount('members');
+            }])->findOrFail($id);
 
             return response()->json([
                 'success' => true,
@@ -178,6 +181,85 @@ class ParishController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch departments',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function testimonies($id)
+    {
+        try {
+            $parish = Parish::with([
+                'testimonies.member' => function ($query) {
+                    $query->select('id', 'full_name');
+                },
+            ])->findOrFail($id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $parish->testimonies
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parish not found',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch testimonies',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function events($id)
+    {
+        try {
+            $parish = Parish::with([
+                'events'
+            ])->findOrFail($id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $parish->events
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parish not found',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch events',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function prayerRequests($id)
+    {
+        try {
+            $parish = Parish::with([
+                'prayerRequests.member' => function ($query) {
+                    $query->select('id', 'full_name');
+                },
+            ])->findOrFail($id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $parish->prayerRequests
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parish not found',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch prayer requests',
                 'error' => $e->getMessage()
             ], 500);
         }
