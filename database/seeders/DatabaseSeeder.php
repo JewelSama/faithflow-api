@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             PrayerRequestSeeder::class,
             TestimonySeeder::class,
             EventSeeder::class,
+            AnnouncementSeeder::class,
+            FinanceSeeder::class,
         ]);
     }
 }
