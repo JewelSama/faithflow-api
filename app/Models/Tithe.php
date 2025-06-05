@@ -12,4 +12,13 @@ class Tithe extends Model
         'amount',
         'month_year',  // format: "YYYY-MM"
     ];
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
+    }
 }
