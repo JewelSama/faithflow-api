@@ -58,4 +58,19 @@ class Parish extends Model
         return $this->hasMany(Testimony::class);
     }
 
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
+
+    public function offerings()
+    {
+        return $this->hasMany(Offering::class);
+    }
+    
+    public function tithes()
+    {
+        return $this->hasMany(Tithe::class);
+    }
+
 }
