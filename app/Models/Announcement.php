@@ -13,5 +13,10 @@ class Announcement extends Model
         'is_global',
         'published_at',
     ];
+
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
     
 }
