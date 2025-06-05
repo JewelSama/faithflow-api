@@ -13,4 +13,15 @@ class Offering extends Model
         'date',
         'service_type',
     ];
+
+    public function member()
+    {
+        return $this->belongsTo(Member::class);
+    }
+    
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class);
+    }
+    
 }
