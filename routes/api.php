@@ -13,6 +13,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\TitheController;
 use App\Http\Controllers\OfferingController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\AttendanceController;
 
 
 
@@ -43,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('parishes/tithes/{id}', [ParishController::class, 'tithes']);
     Route::get('parishes/donations/{id}', [ParishController::class, 'donations']);
     Route::get('parishes/finances/{id}', [ParishController::class, 'finances']);
+    Route::get('parishes/overview/{id}', [ParishController::class, 'overview']);
+    Route::get('parishes/attendance/{id}', [ParishController::class, 'attendance']);
     Route::get('parishes/{id}', [ParishController::class, 'show']);
     Route::put('parishes/{id}', [ParishController::class, 'update']);
     Route::delete('parishes/{id}', [ParishController::class, 'destroy']);
@@ -110,5 +113,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [DonationController::class, 'store']);
         Route::get('{id}', [DonationController::class, 'show']);
         Route::delete('{id}', [DonationController::class, 'destroy']);
+    });
+
+    Route::prefix('attendances')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index']);
+        Route::post('/', [AttendanceController::class, 'store']);
+        Route::get('{id}', [AttendanceController::class, 'show']);
+        Route::put('{id}', [AttendanceController::class, 'update']);
+        Route::delete('{id}', [AttendanceController::class, 'destroy']);
     });
 });
