@@ -22,5 +22,4 @@ class Attendance extends Model
         return $this->belongsTo(Parish::class);
     }
 
-    
 }
