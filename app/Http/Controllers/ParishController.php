@@ -138,6 +138,29 @@ class ParishController extends Controller
         }
     }
 
+    public function attendance($id)
+    {
+        try {
+            $parish = Parish::with('attendances')->findOrFail($id);
+
+            return response()->json([
+                'success' => true,
+                'data' => $parish->attendances
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parish not found',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch attendances',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function members($id)
     {
         try {
@@ -263,6 +286,44 @@ class ParishController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to fetch tithes',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function overview($id)
+    {
+        try {
+            $parish = Parish::findOrFail($id);
+
+            $announcements = Announcement::where("is_global", true)
+                ->orWhere('parish_id', $id)
+                ->orderBy('published_at', 'desc')
+                ->get();
+
+            $donationsTotal = $parish->donations->sum('amount');
+            $eventsTotal = $parish->events->count();
+            $membersTotal = $parish->members->count();
+            $announcementsTotal = $announcements->count();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'donations_total' => $donationsTotal,
+                    'events_total' => $eventsTotal,
+                    'members_total' => $membersTotal,
+                    'announcements_total' => $announcementsTotal,
+                ]
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Parish not found',
+            ], 404);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch donations',
                 'error' => $e->getMessage()
             ], 500);
         }
