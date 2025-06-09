@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             EventSeeder::class,
             AnnouncementSeeder::class,
             FinanceSeeder::class,
+            AttendanceSeeder::class,
         ]);
     }
 }
